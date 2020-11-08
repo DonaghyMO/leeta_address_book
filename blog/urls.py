@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url
-from article import views
+from article import views as article_views
+from test_love import views as test_love_views
 
 urlpatterns = [
     url('admin/', admin.site.urls),
-    url(r'^(?P<article_id>\d+)/$', views.detail),
+    url(r'^(?P<article_id>\d+)/$', article_views.detail),
+    url(r'show_love/',test_love_views.test)
 ]
