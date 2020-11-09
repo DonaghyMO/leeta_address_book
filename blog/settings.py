@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'article',
     'test_love',
+    'index',
 ]
 
 MIDDLEWARE = [
