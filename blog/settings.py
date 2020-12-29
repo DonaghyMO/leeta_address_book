@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'article',
     'test_love',
     'index',
+    'leeta',
 ]
 
 MIDDLEWARE = [

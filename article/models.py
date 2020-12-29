@@ -13,3 +13,4 @@ class Article(models.Model) :
 
     class Meta:  #按时间下降排序
         ordering = ['-date_time']
+        db_table = 'articles'

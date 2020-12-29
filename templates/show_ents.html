@@ -1,0 +1,33 @@
+{% block content %}
+    <h1>企业名录</h1>
+
+    {% if enterprises %}
+      {% for ent in enterprises %}
+        <li>
+            公司名称：{{ ent.enterprise }}
+            <br>
+            电话号码：{{ ent.phone_num }}
+            <br>
+            地址：{{ent.location}}
+            <br>
+            公司官网：{{ent.website}}
+            <br>
+            是否访问：{{ent.visited}}
+            <br>
+            是否拨打：{{ent.phoned}}
+            <br>
+            拨打状态：{{ent.phoned_status}}
+            <br>
+            备注：{{ent.remark}}
+            <br>
+            企业法人：{{ent.legal_person}}
+        </li>
+        <br>
+
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no books in the library.</p>
+    {% endif %} 
+{% endblock %}
