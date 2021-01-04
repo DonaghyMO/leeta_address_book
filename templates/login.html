@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>力泰咨询</title>
+</head>
+<h1><a href="/leeta/">力泰咨询</a></h1>
+<h2>请您先进行登录</h2>
+<body>
+<form action="/leeta/login/" method="post">
+    {{ error_message }}
+    <br>
+    用户名：
+    <input type="text" name="user_name">
+    <br>
+    密码：
+    <input type="text" name="password">
+    <br>
+    <input type="submit" value="提交">
+</form>
+</body>
+</html>

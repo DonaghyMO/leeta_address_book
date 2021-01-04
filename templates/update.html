@@ -1,0 +1,46 @@
+{% block content %}
+    {% if ent %}
+<h2><a href="/leeta/">力泰咨询</a></h2>
+    <h1><font color="red">您正在修改{{ ent.enterprise }}相关信息，请慎重修改！</font></h1>
+    <font color="red">{{ reminder }}</font>
+    <li>
+        <form action="/leeta/update/" method="post">
+            公司名称：
+            <input type=text value="{{ ent.enterprise }}" name="enterprise">
+            <br>
+            电话号码：
+            <input type=text value="{{ ent.phone_num }}" name="phone_num">
+            <br>
+            地址：
+            <input type=text value="{{ ent.location }}" name="location">
+            <br>
+            公司官网：
+            <input type=text value="{{ ent.website }}" name="website">
+            <br>
+            是否访问：
+            <input type=text value="{{ ent.visited }}" name="visited">
+            <br>
+            是否拨打：
+            <input type=text value="{{ ent.phoned }}" name="phoned">
+            <br>
+            拨打日期：
+            <input type=text value="{{ ent.phoned_date }}" name="phoned_date">
+            <br>
+            拨打状态：
+            <input type=text value="{{ ent.phoned_status }}" name="phoned+status">
+            <br>
+            备注：
+            <input type=text  name="remark" value="{{ ent.remark }}">
+            <br>
+            企业法人：
+            <input type=text value="{{ ent.legal_person }}" name="legal_person">
+            <input type="hidden" value="{{ ent.id }}" name="ent_id">
+            <br>
+            <input type="submit" value="修改">
+        </form>
+    </li>
+        <br>
+    {% else %}
+      <p>您要修改的企业不在数据库中</p>
+    {% endif %}
+{% endblock %}
