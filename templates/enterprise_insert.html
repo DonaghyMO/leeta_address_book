@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>力泰咨询</title>
+</head>
+<body>
+<h1><font size="5" color="red">
+    您正在写入新企业！！请慎重操作，写入记录会直接关联到本人！！已经录入的公司不能重复录入.
+</font></h1>
+{{ message }}
+<form action="/leeta/insert/" method="post">
+    <input type="text" placeholder="企业名称" name="enterprise">
+    <input type="text" placeholder="企业电话" name="phone_num">
+    <input type="text" placeholder="企业地址" name="location">
+    <input type="text" placeholder="企业官网" name="website">
+    <input type="text" placeholder="企业法人" name="legal_person">
+    <input type="submit" value="提交">
+</form>
+
+</body>
+</html>

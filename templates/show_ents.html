@@ -1,21 +1,32 @@
 {% block content %}
-<h2><a href="/leeta/">力泰咨询</a></h2>
-    <h1>企业名录</h1>
+
+<h1><a href="/leeta/">力泰咨询</a></h1>
+<HR align=center width=5000 color=#987cb9 SIZE=5>
     <form action="/leeta/search/" method="get">
+
+        <font size="5">搜索：</font>
+        <br>
         按企业名称搜索：
         <input type="text" placeholder="按企业名称搜索" name="q">
         <br>
         按照拨打状态分类:
-        <select>
+        <select id="select_list" name="select_list">
             <option selected="selected" disabled>拨打状态</option>
-            <option value =0 name="zero">"未拨打"</option>
-            <option value =1 name="one">"错误号码"</option>
-            <option value=2 name="two">"打不通"</option>
-            <option value=3 name="tree">"接听但无效"</option>
-            <option value=4 name="four" id="four">"接听且有效"</option>
+            <option value =0 id="zero">"未拨打"</option>
+            <option value =1 id="one">"错误号码"</option>
+            <option value=2 id="two">"打不通"</option>
+            <option value=3 id="tree">"接听但无效"</option>
+            <option value=4 id="four">"接听且有效"</option>
         </select>
         <input type="submit" value="搜索">
     </form>
+
+
+
+        <a href="/leeta/insert"><font size="5">添加公司</font></a>
+<HR align=center width=5000 color=#987cb9 SIZE=5>
+
+
     {% if enterprises %}
       {% for ent in enterprises %}
         <li>
@@ -38,15 +49,15 @@
             备注：{{ent.remark}}
             <br>
             企业法人：{{ent.legal_person}}
-            <form action="/leeta/update" method="get">
+            <form action="/leeta/update/" method="get">
                 <input type="hidden" name="ent_id" value={{ ent.id }}>
                 <input type="submit" value="修改">
             </form>
         </li>
         <br>
       {% endfor %}
-
     {% else %}
-      <p>您搜索的企业不在数据库中</p>
-    {% endif %} 
+      <p>没有目标企业</p>
+    {% endif %}
+
 {% endblock %}
