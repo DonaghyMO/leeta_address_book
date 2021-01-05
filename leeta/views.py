@@ -2,7 +2,7 @@ import functools
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from .models import EnterpriseDirectory,User
-import json
+
 
 def login_required(func):
     @functools.wraps(func)
@@ -16,9 +16,11 @@ def login_required(func):
 
 
 def login(request):
-    if request.POST:
+    if request.method == "POST":
         user_name = request.POST["user_name"]
         password = request.POST["password"]
+        print(user_name)
+        print(password)
         if not user_name.isdigit():
             users = User.objects.filter(user_name=user_name, password=password)
             if users:
@@ -38,15 +40,22 @@ def login(request):
     return resp
 
 
-@login_required
+def logout(request):
+    resp = render(request,"login.html")
+    resp.delete_cookie('user')
+    resp.delete_cookie('is_login')
+    return resp
+
 def modify_password(request):
-    if request.POST:
+    if request.method == "POST":
         user_name = request.POST["user_name"]
         old_password = request.POST["old_password"]
         new_password = request.POST["new_password"]
         if not user_name.isdigit():
             users = User.objects.filter(user_name=user_name, password=old_password)
             if users:
+                users[0].password = new_password
+                users[0].save()
                 resp = render(request, "leeta_index.html", {"welcome_message": f"欢迎你{users[0].user_name}"})
                 resp.set_cookie('is_login', True, expires=60 * 60 * 24 * 7)
                 resp.set_cookie('user', users[0].phone_num, expires=60 * 60 * 24 * 7)
@@ -54,11 +63,14 @@ def modify_password(request):
         elif user_name.isdigit():
             users = User.objects.filter(phone_num=int(user_name), password=old_password)
             if users:
+                users[0].password = new_password
+                users[0].save()
                 resp = render(request, "leeta_index.html", {"welcome_message": f"欢迎你{users[0].phone_num}"})
                 resp.set_cookie('is_login', True, expires=60 * 60 * 24 * 7)
                 resp.set_cookie('user', users[0].phone_num, expires=60 * 60 * 24 * 7)
                 return resp
-
+    else:
+        return render(request, "modify_password.html")
 
 
 @login_required

@@ -5,7 +5,8 @@ urlpatterns = [
     url(r'show_enterprises/',enterprises_show),
     url(r'^search/$', enterprises_search),
     url(r'^update/',enterprise_update,),
+    url(r'^modify_password/$',modify_password),
+    url(r'^logout/$',logout),
     url(r'^login/',login),
     url(r'^insert/',enterprise_insert),
-    url(r'^modify_password',modify_password),
 ]
