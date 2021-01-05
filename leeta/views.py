@@ -69,8 +69,7 @@ def modify_password(request):
                 resp.set_cookie('is_login', True, expires=60 * 60 * 24 * 7)
                 resp.set_cookie('user', users[0].phone_num, expires=60 * 60 * 24 * 7)
                 return resp
-    else:
-        return render(request, "modify_password.html")
+    return render(request, "modify_password.html")
 
 
 @login_required
