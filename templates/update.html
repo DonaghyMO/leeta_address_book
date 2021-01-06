@@ -1,5 +1,4 @@
 {% block content %}
-    {% if ent %}
 <h2><a href="/leeta/">力泰咨询</a></h2>
     <h1><font color="red">您正在修改{{ ent.enterprise }}相关信息，请慎重修改！</font></h1>
     <font color="red">{{ reminder }}</font>
@@ -18,29 +17,49 @@
             <input type=text value="{{ ent.website }}" name="website">
             <br>
             是否访问：
-            <input type=text value="{{ ent.visited }}" name="visited">
+            <select id="is_visit" name="is_visited">
+                <option selected="selected" disabled>未选择</option>
+                <option value =1 >已访问</option>
+                <option value =0 >未访问</option>
+            </select>
             <br>
             是否拨打：
-            <input type=text value="{{ ent.phoned }}" name="phoned">
+            <select id="is_phoned" name="is_phoned">
+                <option selected="selected" disabled>未选择</option>
+                <option value =1 >已拨打</option>
+                <option value =0 >未拨打</option>
+            </select>
             <br>
             拨打日期：
-            <input type=text value="{{ ent.phoned_date }}" name="phoned_date">
-            <br>
-            拨打状态：
-            <input type=text value="{{ ent.phoned_status }}" name="phoned+status">
+            <input type="date" value="{{ ent.phoned_date }}" name="phoned_date">
             <br>
             备注：
-            <input type=text  name="remark" value="{{ ent.remark }}">
+            <input type=text  name="remark" value="{{ ent.remark }}" size="100">
             <br>
             企业法人：
             <input type=text value="{{ ent.legal_person }}" name="legal_person">
-            <input type="hidden" value="{{ ent.id }}" name="ent_id">
             <br>
+            电话联系人：
+            <input type=text value="{{ ent.contact }}" name="contact">
+            <br>
+            企业情况：
+            <input type="text" value="{{ ent.ent_situation }}" name="ent_situation">
+            <br>
+            拨打状态：
+            <select id="select_list" name="phoned_status">
+                <option selected="selected" disabled>拨打状态</option>
+                <option value =0 id="zero">未拨打</option>
+                <option value =1 id="one">错误号码</option>
+                <option value=2 id="two">打不通</option>
+                <option value=3 id="tree">接听但无效</option>
+                <option value=4 id="four">接听且有效</option>
+                <option value=5 id="five">沟通完成</option>
+            </select>
+            <br>
+            <input type="hidden" value="{{ ent.id }}" name="ent_id">
             <input type="submit" value="修改">
+
         </form>
     </li>
         <br>
-    {% else %}
-      <p>您要修改的企业不在数据库中</p>
-    {% endif %}
 {% endblock %}

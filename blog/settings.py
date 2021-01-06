@@ -37,9 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'article',
-    'test_love',
-    'index',
     'leeta',
 ]
 
@@ -80,7 +77,7 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'my_blog',
+        'NAME': 'leeta',
         'PASSWORD': '1998',
         'USER' : 'django',
         'HOST':'127.0.0.1',

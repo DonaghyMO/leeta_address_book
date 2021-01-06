@@ -2,22 +2,33 @@
 
 <h1><a href="/leeta/">力泰咨询</a></h1>
 <HR align=center width=5000 color=#987cb9 SIZE=5>
-    <form action="/leeta/search/" method="get">
+    <form action="/leeta/search/" method="post">
 
         <font size="5">搜索：</font>
         <br>
         按企业名称搜索：
-        <input type="text" placeholder="按企业名称搜索" name="q">
+        <input type="text" placeholder="按企业名称搜索" name="enterprise">
         <br>
         按照拨打状态分类:
-        <select id="select_list" name="select_list">
-            <option selected="selected" disabled>拨打状态</option>
-            <option value =0 id="zero">"未拨打"</option>
-            <option value =1 id="one">"错误号码"</option>
-            <option value=2 id="two">"打不通"</option>
-            <option value=3 id="tree">"接听但无效"</option>
-            <option value=4 id="four">"接听且有效"</option>
+        <select id="select_list" name="phoned_status">
+            <option selected="selected" value="-1" >拨打状态</option>
+            <option value =0 id="zero">未拨打</option>
+            <option value =1 id="one">错误号码</option>
+            <option value=2 id="two">打不通</option>
+            <option value=3 id="tree">接听但无效</option>
+            <option value=4 id="four">接听且有效</option>
+            <option value=5 id="five">沟通完成</option>
         </select>
+        <br>
+        按拨打日期分类：
+        <input type="date" name="phoned_date_start">
+        <input type="date" name="phoned_date_end">
+        <br>
+        按录入日期分类：
+        <input type="date" name="insert_date_start">
+        <input type="date" name="insert_date_end">
+        <br>
+
         <input type="submit" value="搜索">
     </form>
 
@@ -44,11 +55,17 @@
             <br>
             拨打状态：{{ent.phoned_status}}
             <br>
-            拨打日期：{{ent.phoned_date}}
-            <br>
-            备注：{{ent.remark}}
+            电话备注：{{ent.remark}}
             <br>
             企业法人：{{ent.legal_person}}
+            <br>
+            电话联系人：{{ ent.contact }}
+            <br>
+            企业备注：{{ ent.enterprise_situation }}
+            <br>
+            拨打日期：<td>{{ ent.phoned_date| date:"Y-m-d" }}</td>
+            <br>
+            添加日期：{{ ent.insert_date| date:"Y-m-d" }}
             <form action="/leeta/update/" method="get">
                 <input type="hidden" name="ent_id" value={{ ent.id }}>
                 <input type="submit" value="修改">
