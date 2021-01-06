@@ -1,7 +1,7 @@
 import xlrd
 import os
 import django
-os.environ['DJANGO_SETTINGS_MODULE'] = 'blog.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'leeta_site.settings'
 django.setup()
 from leeta.models import EnterpriseDirectory,User
 data = xlrd.open_workbook(r'hunan_enterprise.xlsx')
