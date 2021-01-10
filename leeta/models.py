@@ -83,13 +83,17 @@ class EnterpriseDirectory(models.Model):
                 phoned_date__range=[date(2020, 11, 14), date(eyear, emonth, eday)])
         # 按录入日期分类
         if insert_date_start and insert_date_end:
+            syear, smonth, sday = cls.fromisoformat(insert_date_start)
+            eyear, emonth, eday = cls.fromisoformat(insert_date_end)
             ents = ents.filter(
-                insert_date__range=[date.fromisoformat(insert_date_start), date.fromisoformat(insert_date_end)])
+                insert_date__range=[date(syear,smonth,sday), date(eyear,emonth,eday)])
         elif insert_date_start:
-            ents = ents.filter(insert_date__range=[date.fromisoformat(insert_date_start), date.today()])
+            syear, smonth, sday = cls.fromisoformat(insert_date_start)
+            ents = ents.filter(insert_date__range=[date(syear,smonth,sday), date.today()])
         elif insert_date_end:
+            eyear, emonth, eday = cls.fromisoformat(insert_date_end)
             ents = ents.filter(
-                insert_date__range=[date.fromisoformat("2020-11-14"), date.fromisoformat(insert_date_end)])
+                insert_date__range=[date(2020,11,14), date(eyear,emonth,eday)])
         ents = cls.convert_display_form(ents)
         return ents
 
