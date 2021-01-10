@@ -2,6 +2,8 @@ from django.db import models
 from datetime import date
 import functools
 from django.shortcuts import render
+
+
 class User(models.Model):
     user_name = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
@@ -20,6 +22,7 @@ class User(models.Model):
                 return func(request, *args, **kwargs)
 
         return inner
+
 
 class EnterpriseDirectory(models.Model):
     enterprise = models.CharField(max_length=100)  # 企业名称
@@ -44,7 +47,7 @@ class EnterpriseDirectory(models.Model):
         db_table = 'leeta_enterprise_directory'
 
     @classmethod
-    def convert_display_form(cls,ents):
+    def convert_display_form(cls, ents):
         phone_status_map = {0: "未拨打", 1: "错误号码", 2: "打不通", 3: "接听但无效", 4: "接听且有效", 5: "沟通完成"}
         for ent in ents:
             ent.visited = "已访问" if ent.visited else "未访问"
@@ -53,7 +56,7 @@ class EnterpriseDirectory(models.Model):
         return ents
 
     @classmethod
-    def search_enterprises(cls,post):
+    def search_enterprises(cls, post):
         enterprise = post["enterprise"][0]
         phoned_status = int(post["phoned_status"][0])
         phoned_date_start = post["phoned_date_start"][0]
@@ -67,13 +70,17 @@ class EnterpriseDirectory(models.Model):
             ents = ents.filter(phoned_status=phoned_status)
         # 按拨打日期分类
         if phoned_date_start and phoned_date_end:
+            syear, smonth, sday = cls.fromisoformat(post['phoned_date_start'][0])
+            eyear, emonth, eday = cls.fromisoformat(post['phoned_date_end'][0])
             ents = ents.filter(
-                phoned_date__range=[date.fromisoformat(phoned_date_start), date.fromisoformat(phoned_date_end)])
+                phoned_date__range=[date(syear, smonth, sday), date(eyear, emonth, eday)])
         elif phoned_date_start:
-            ents = ents.filter(phoned_date__range=[date.fromisoformat(phoned_date_start), date.today()])
+            syear, smonth, sday = cls.fromisoformat(post['phoned_date_start'][0])
+            ents = ents.filter(phoned_date__range=[date(syear, smonth, sday), date.today()])
         elif phoned_date_end:
+            eyear, emonth, eday = cls.fromisoformat(post['phoned_date_end'][0])
             ents = ents.filter(
-                phoned_date__range=[date.fromisoformat("2020-11-14"), date.fromisoformat(phoned_date_end)])
+                phoned_date__range=[date(2020, 11, 14), date(eyear, emonth, eday)])
         # 按录入日期分类
         if insert_date_start and insert_date_end:
             ents = ents.filter(
@@ -86,4 +93,7 @@ class EnterpriseDirectory(models.Model):
         ents = cls.convert_display_form(ents)
         return ents
 
-
+    @classmethod
+    def fromisoformat(cls, date):
+        year, month, day = date.split('-')
+        return int(year), int(month), int(day)

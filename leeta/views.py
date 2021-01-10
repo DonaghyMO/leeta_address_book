@@ -84,7 +84,13 @@ def enterprises_search(request):
     if request.method == "POST":
         post = dict(request.POST)
         ents = EnterpriseDirectory.search_enterprises(post)
-        return render(request, "show_ents.html", {"enterprises": ents})
+        contain = {"enterprises": ents}
+        contain.update(post)
+        contain['phoned_date_start']=contain['phoned_date_start'][0]
+        contain['phoned_date_end'] = contain['phoned_date_end'][0]
+        contain['insert_date_start'] = contain['insert_date_start'][0]
+        contain['insert_date_end'] = contain['insert_date_end'][0]
+        return render(request, "show_ents.html", contain)
 
 
 @User.login_required
@@ -97,13 +103,9 @@ def enterprise_update(request):
             return render(request, "update.html", {"ent": ent})
     else:
         text = dict(request.POST)
-        print(text)
         ent = EnterpriseDirectory.objects.get(id=int(text["ent_id"][0]))
-        try:
-            phoned_date = date.fromisoformat(text["phoned_date"][0])
-            phoned_date = phoned_date.__str__()
-        except Exception:
-            return render(request, "update.html", {"ent": ent, "reminder": "日期输入有误输入格式为“年-月-日 例如：2021-01-05”，请重新输入"})
+        if 'phoned_date' in text.keys():
+            ent.phoned_date = text["phoned_date"][0]
         if "phoned_status" in text.keys():
             ent.phoned_status = int(text["phoned_status"][0])
         ent.phoned_date = ent.phoned_date.__str__()
@@ -117,7 +119,6 @@ def enterprise_update(request):
             ent.visited = text["visited"][0] == "1"
         else:
             ent.visited = False
-        ent.phoned_date = phoned_date
         ent.remark = text["remark"][0]
         ent.contact = text["contact"][0]
         ent.ent_situation = text["ent_situation"][0]
