@@ -32,7 +32,7 @@ class EnterpriseDirectory(models.Model):
     visited = models.BooleanField(default=False)  # 是否拜访
     phoned = models.BooleanField(default=False)  # 是否拨打
     phoned_status = models.IntegerField(default=0)  # 拨打状态 0、未拨打 1、错误号码 2、打不通 3、接听但无效 4、接听且有效 5、沟通完成
-    phoned_date = models.DateField(default=date.today().__str__())  # 拨打日期
+    phoned_date = models.DateField(null=True)  # 拨打日期
     remark = models.CharField(max_length=500)  # 备注
     legal_person = models.CharField(max_length=50, blank=True)  # 企业法人
     registrant = models.CharField(max_length=50, default="17680152306")
