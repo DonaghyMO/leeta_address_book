@@ -61,11 +61,13 @@
             <br>
             电话联系人：{{ ent.contact }}
             <br>
-            企业备注：{{ ent.enterprise_situation }}
+            企业情况：{{ ent.enterprise_situation }}
             <br>
             拨打日期：<td>{{ ent.phoned_date| date:"Y-m-d" }}</td>
             <br>
             添加日期：{{ ent.insert_date| date:"Y-m-d" }}
+            <br>
+            行业：{{ ent.industry }}
             <form action="/leeta/update/" method="get">
                 <input type="hidden" name="ent_id" value={{ ent.id }}>
                 <input type="submit" value="修改">

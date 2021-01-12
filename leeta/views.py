@@ -140,6 +140,9 @@ def enterprise_insert(request):
                                            location=ent["location"][0],
                                            website=ent["website"][0],
                                            legal_person=ent["legal_person"][0],
+                                           industry=ent["industry"][0],
+                                           enterprise_situation=ent["enterprise_situation"][0],
+                                           contact=ent["contact"][0],
                                            registrant=request.COOKIES.get("user")
                                            )
         return render(request, "enterprise_insert.html", {"message": "添加成功！！"})

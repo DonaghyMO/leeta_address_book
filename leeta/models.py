@@ -39,6 +39,8 @@ class EnterpriseDirectory(models.Model):
     insert_date = models.DateField(default=date.today().__str__())
     contact = models.CharField(default="", max_length=40)
     enterprise_situation = models.CharField(default="", max_length=1000)
+    industry = models.CharField(default="区块链",max_length=200)
+
 
     def __str__(self):
         return self.enterprise
